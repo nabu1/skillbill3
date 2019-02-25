@@ -20,14 +20,15 @@ export default new Vuex.Store({
   },
   mutations: {
     GET_DEVS(state, devs) {
-      console.log('%c devs = ' + devs.length, 'color: violet')
+      //console.log('%c devs = ' + devs.length, 'color: violet')
       //console.log(devs)
       state.devs = devs
     },
   },
   actions: {
-    getDevs(context) {
-      ajaxGetDevs(context)
+    getDevs(context, selectedSkills) {
+      console.log('%c actions: selectedSkills = ' + selectedSkills, 'color: white')
+      ajaxGetDevs(context, selectedSkills)
     },
 
   },

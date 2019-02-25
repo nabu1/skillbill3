@@ -1,6 +1,8 @@
 <template src="./Table.html"></template>
 
 <script>
+const selectedSkills = {}
+
 export default {
   data: () => ({
     skill_1: null,
@@ -51,7 +53,7 @@ export default {
     pagination: {
       rowsPerPage: 10
     },
-    loading: false
+    loading: false,
   }),
 
   computed: {
@@ -105,14 +107,59 @@ export default {
       }
       this.close()
     },
-    onSkill1(e) {
-      console.log('%c onSkill1 = ' , 'color: yellow')
-      //console.log(e.target.value)
-      console.log(e)
+    onSkill_1(e) {
+      console.log('%c onSkill_1 = ' + e, 'color: yellow')
+      console.log( Array.isArray(selectedSkills))
+      selectedSkills.skill_1 = e
+
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+
     },
-    keyUpSkill_1(e) {
-      console.log('%c keyUpSkill_1 = ' + e.target.value, 'color: yellow')
+    onRank_1(e) {
+      console.log('%c onRank_1 = ' + e, 'color: yellow')
+      console.log( Array.isArray(selectedSkills))
+      selectedSkills.rank_1 = e
+
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+    },
+    onSkill_2(e) {
+      console.log('%c onSkill_2 = ' + e, 'color: yellow')
+      console.log( Array.isArray(selectedSkills))
+      selectedSkills.skill_2 = e
+
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+    },
+    onRank_2(e) {
+      console.log('%c onRank_2 = ' + e, 'color: yellow')
+      console.log( Array.isArray(selectedSkills))
+      selectedSkills.rank_2 = e
+
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+    },
+    onSkill_3(e) {
+      console.log('%c onSkill_3 = ' + e, 'color: yellow')
+      console.log( Array.isArray(selectedSkills))
+      selectedSkills.skill_3 = e
+
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+    },
+    onRank_3(e) {
+      console.log('%c onRank_3 = ' + e, 'color: yellow')
+      console.log( Array.isArray(selectedSkills))
+      selectedSkills.rank_3 = e
+
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+    },
+    onSearch() {
+      console.log('%c onSearch ', 'color: lime')
+      console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+      this.$store.dispatch('getDevs', selectedSkills)
+
+    },
+    onReset() {
+      console.log('%c onReset ', 'color: lime')
     }
+
   }
 }
 </script>

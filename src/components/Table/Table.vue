@@ -20,7 +20,7 @@ export default {
       { text: 'Rank 2', sortable: false, value: 'rank_2' },
       { text: 'Skill 3', sortable: true, value: 'rank_3' },
       { text: 'Rank 3', sortable: false, value: 'rank_3' },
-      { text: 'City', sortable: true, value: 'city' },
+      //{ text: 'City', sortable: true, value: 'city' },
       { text: 'Picture', sortable: true, value: 'picture' }
     ],
     //devs: [],
@@ -94,6 +94,8 @@ export default {
     },
 
     close () {
+      console.log('%c Tu close', 'color: red')
+
       this.dialog = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
@@ -102,10 +104,13 @@ export default {
     },
 
     save () {
+      console.log('%c Tu save', 'color: red')
+
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem)
-      } else {
-        this.desserts.push(this.editedItem)
+        Object.assign(this.divs[this.editedIndex], this.editedItem)
+      }
+      else {
+        this.divs.push(this.editedItem)
       }
       this.close()
     },
@@ -150,12 +155,22 @@ export default {
     onSearch() {
       console.log('%c onSearch ', 'color: lime')
       this.$store.dispatch('getDevs', selectedSkills)
-
-      console.log('%c selected = ' + JSON.stringify(this.selected), 'color: yellow')
     },
 
-    onReset() {
-      console.log('%c onReset ', 'color: lime')
+    onClear() {
+      console.log('%c onClear ', 'color: lime')
+      selectedSkills = {}
+    },
+
+    onSelected() {
+      console.log('%c selected = ' + JSON.stringify(this.selected), 'color: yellow')
+      this.$store.commit('GET_DEVS', this.selected)
+    },
+    
+    onResetSelected() {
+      console.log('%c onResetSelected', 'color: lime')
+      this.selected = []
+
     }
   }
 }

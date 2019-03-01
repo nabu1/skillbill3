@@ -22,10 +22,10 @@ export const ajaxInsertDev = dev => {
   console.log('%c Tu ajaxInsertDev: dev = ' + JSON.stringify(dev), 'color: violet')
   const axios = require('axios')
   const url = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  const countUrl = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill?&c=true&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
 
   axios.defaults.headers.post['Content-Type'] = 'application/json'
 
-  const countUrl = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill?&c=true&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
 
   axios.get(countUrl)
     .then(res => {
@@ -45,8 +45,33 @@ export const ajaxInsertDev = dev => {
     .catch(err => {
       alert('Błąd zapisu na serwerze (2): ', err)
     })
+}
+
+//export const ajaxDelete = _id => {
+export const ajaxDelete = _id => {
+  console.log('%c _id = ', 'color: white')
+  console.log(_id.replace(/"/g, ''))
+
+  const axios = require('axios')
+  const config = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Z-Key',
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS, HEAD',
+    "Access-Control-Allow-Credentials": "true"
+  }
+  const options = {
+    contentType: "application/json"
+  }
+
+  // const url = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill/5c742d443603900f550d492a?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
 
 
-  //axios.post(url, dev01)
+  const url = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill/${_id.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
 
+  console.log('%c url = ' + url, 'color: white')
+
+  axios.delete(url)
+    .then(res => console.log('Skasowany ziutex: ', res))
+    .catch(err => console.log('Błąd: ', err))
 }

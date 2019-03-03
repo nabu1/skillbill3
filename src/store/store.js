@@ -7,8 +7,9 @@ Vue.use(Vuex)
 function initialState() {
   return {
     devs: [],
-    dblClickedDev: null,
-    selectedDevs: []
+    dblClickedDevs: null,
+    selectedDevs: [],
+    openDialog: false
   }
 }
 
@@ -18,24 +19,26 @@ export default new Vuex.Store({
 
   getters: {
     readDevs: state => state.devs,
-    getDblClickedDev: state => state.dblClickedDev,
-    getSelectedDevs: state => state.selectedDevs
+    getDblClickedDevs: state => state.dblClickedDevs,
+    getOpenDialog: state => state.openDialog
   },
 
   mutations: {
     READ_DEVS(state, devs) {
       state.selectedDevs = devs
       state.devs = devs
-      console.log('%c state.devs = ' + JSON.stringify(state.devs), 'color: lime')
+      // console.log('%c state.devs = ' + JSON.stringify(state.devs), 'color: lime')
     },
 
-    SET_DBLCLICKED_DEV(state, dev) {
-      state.dblClickedDev = dev
+    SET_DBLCLICKED_DEVS(state, devs) {
+      console.log('%c SET_DBLCLICKED_DEVS = ' + devs.length , 'color: lime')
+      console.log('%c devs = ' + JSON.stringify(devs), 'color: lime')
+      state.dblClickedDevs = devs
     },
 
-    SET_SELECTED_DEVS(state, selectedDevs) {
-      console.log('%c SET_SELECTED_DEVS = ' + JSON.stringify(selectedDevs), 'color: white')
-      state.selectedDevs = selectedDevs
+    OPEN_DIALOG(state, bool) {
+      state.openDialog = bool
+      console.log('%c OPEN_DIALOG = ' + bool, 'color: white')
     }
   },
 
@@ -44,8 +47,8 @@ export default new Vuex.Store({
       ajaxReadDevs(context, selectedSkills)
     },
 
-    setDdblClickedDev(context, dev) {
-      context.commit('SET_DBLCLICKED_DEV', dev)
+    setDdblClickedDevs(context, devs) {
+      context.commit('SET_DBLCLICKED_DEVS', devs)
     },
 
     deleteDev(context, dev) {
@@ -64,11 +67,11 @@ export default new Vuex.Store({
       ajaxUpdateDates(context, clickedDev)
     },
 
-    setSelectedDevs(context, selectedDevs) {
-      // console.log('%c setSelectedDevs = ' + JSON.stringify(selectedDevs), 'color: white')
-      context.commit('SET_SELECTED_DEVS', selectedDevs)
+    openDialog(context, bool) {
+      context.commit('OPEN_DIALOG', bool)
 
     }
+
 
   },
 })

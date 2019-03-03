@@ -5,19 +5,27 @@
     data() {
       return {
         search: '',
-        // selected: []
+        //dblClickedDevs: ''
       }
+    },
+    computed: {
+      dblClickedDevs() {
+        console.log('Tu dblClickedDevs')
+        // console.log('%c this.selected = ' + this.selected.length, 'color: white')
+        return this.$store.getters.getdblClickedDevs ? this.$store.getters.getdblClickedDevs.length : 0
+
+      },
     },
     methods: {
       onSelected() {
-        console.log('%c selected = ' + JSON.stringify(this.$store.getters.getSelectedDevs), 'color: yellow')
-        this.$store.commit('READ_DEVS', this.$store.getters.getSelectedDevs)
+        console.log('%c selected = ' + JSON.stringify(this.$store.getters.getDblClickedDevs), 'color: yellow')
+        this.$store.commit('READ_DEVS', this.$store.getters.getDblClickedDevs)
         //this.$store.dispatch('setSelectedDevs', [])
       },
 
       onResetSelected() {
         //this.selected = []
-        this.$store.dispatch('setSelectedDevs', [])
+        this.$store.dispatch('setDdblClickedDevs', [])
         this.$store.dispatch('readDevs', {})
         //this.$store.commit('READ_DEVS', [])
       },
@@ -27,6 +35,8 @@
       },
 
       onNewDev(item) {
+        console.log('Tu onNewDev')
+        this.$store.dispatch('openDialog', true)
       },
     }
   }

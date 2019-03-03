@@ -16,23 +16,29 @@ export const ajaxReadDevs = (context, selectedSkills) => {
 }
 
 export const ajaxInsertDev = dev => {
+
+  console.log('%c dev = ' + JSON.stringify(dev), 'color: yellow')
+
   const axios = require('axios')
   axios.defaults.headers.post['Content-Type'] = 'application/json'
-  const url = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  const url = `https://api.mlab.com/api/1/databases/skillbill/collections/skillbill?s={id:1}&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
   const countUrl = LITERALS.PREFIX + '?&c=true' + '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
 
   const getCount = async () => {
     return axios.get(countUrl)
       .then(res => {
-
+        console.log('%c count = ' + res.data, 'color: orange')
         return res.data
       })
       .catch(err => console.log('Error 1: ', err))
   }
 
   const getLastDocumentId = async lastDocumentUrl => {
+    console.log('%c lastDocumentUrl = ' + lastDocumentUrl, 'color: violet')
+
     return axios.get(lastDocumentUrl)
       .then(res => {
+        console.log('%c lastDocument id = ' + res.data[0].id, 'color: white')
         return res.data[0].id
       })
       .catch(err => console.log('Error 2: ', err))
@@ -40,6 +46,9 @@ export const ajaxInsertDev = dev => {
 
   const insertDocument = async (url, dev, lastDocumentId) => {
     dev.id = lastDocumentId + 1
+    console.log('%c dev.id = ' + dev.id, 'color: violet')
+    console.log('%c dev = ' + JSON.stringify(dev), 'color: yellow')
+
     return axios.post(url, dev)
       .then(res => {
         console.log('Dane zostały zapisane na serwerze')
@@ -52,7 +61,9 @@ export const ajaxInsertDev = dev => {
   async function insertDev() {
     try {
       const count = await getCount() - 1
-      const lastDocumentId = await getLastDocumentId(LITERALS.PREFIX + `?sk=${count}` + '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI')
+      const query = LITERALS.PREFIX + `?s={id:1}&sk=${count}&l=1` + '&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+      console.log('%c query = ' + query, 'color: orange')
+      const lastDocumentId = await getLastDocumentId(query)
       await insertDocument(url, dev, lastDocumentId)
     }
     catch (err) {

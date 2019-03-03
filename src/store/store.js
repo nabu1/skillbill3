@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import createPersistedState from 'vuex-persistedstate'
-import { ajaxReadDevs, ajaxUpdateDev, ajaxDeleteDev, ajaxUpdateDates } from '../services/ajax'
+import { ajaxReadDevs, ajaxInsertDev, ajaxUpdateDev, ajaxDeleteDev, ajaxUpdateDates } from '../services/ajax'
 Vue.use(Vuex)
 
 function initialState() {
@@ -63,7 +63,8 @@ export default new Vuex.Store({
     },
 
     insertDev(context, dev) {
-      ajaxInsertDev(context, dev)
+      console.log('%c insertDev dev = ' + JSON.stringify(dev), 'color: yellow')
+      ajaxInsertDev(dev)
     },
 
     updateDev(context, dev) {

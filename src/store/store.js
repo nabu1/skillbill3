@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 // import createPersistedState from 'vuex-persistedstate'
-import { ajaxReadDevs, ajaxUpdateDev, ajaxDeleteDev } from '../services/ajax'
+import { ajaxReadDevs, ajaxUpdateDev, ajaxDeleteDev, ajaxUpdateDates } from '../services/ajax'
 Vue.use(Vuex)
 
 function initialState() {
   return {
     devs: [],
-    dblClickedId: null
+    dblClickedDev: null
   }
 }
 
@@ -17,17 +17,17 @@ export default new Vuex.Store({
 
   getters: {
     readDevs: state => state.devs,
-    getDblClickedId: state => state.dblClickedId
+    getDblClickedDev: state => state.dblClickedDev
   },
 
   mutations: {
     READ_DEVS(state, devs) {
-      // console.log('%c Tu READ_DEVS, devs = ' + devs.length, 'color: yellow')
       state.devs = devs
+      console.log('%c Tu READ_DEVS, devs[i] = ' + JSON.stringify(devs[1]), 'color: yellow')
     },
 
-    SET_DBLCLICKED_ID(state, _id) {
-      state.dblClickedId = _id
+    SET_DBLCLICKED_DEV(state, dev) {
+      state.dblClickedDev = dev
     }
   },
 
@@ -36,8 +36,8 @@ export default new Vuex.Store({
       ajaxReadDevs(context, selectedSkills)
     },
 
-    setDdblClickedId(context, _id) {
-      context.commit('SET_DBLCLICKED_ID', _id)
+    setDdblClickedDev(context, dev) {
+      context.commit('SET_DBLCLICKED_DEV', dev)
     },
 
     deleteDev(context, dev) {
@@ -55,6 +55,9 @@ export default new Vuex.Store({
       ajaxUpdateDev(context, dev)
     },
 
+    updateCalendar(context, dev) {
+      ajaxUpdateDates(context, dev)
+    },
 
   },
 })

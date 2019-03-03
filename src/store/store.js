@@ -12,7 +12,9 @@ function initialState() {
     dblClickedDevs: null,
     selectedDevs: [],
     openDialog: false,
-    calendarDev: null
+    calendarDev: null,
+    progressBar: false,
+    skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
   }
 }
 
@@ -24,11 +26,15 @@ export default new Vuex.Store({
     readDevs: state => state.devs,
     getDblClickedDevs: state => state.dblClickedDevs,
     getOpenDialog: state => state.openDialog,
-    getCalendarDev: state => state.calendarDev
+    getCalendarDev: state => state.calendarDev,
+    getProgressBar: state => state.progressBar,
+    getSkills: state => state.skills || []
+    //getSkills: state => ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
   },
 
   mutations: {
     READ_DEVS(state, devs) {
+      console.log('%c devs = ' + typeof devs, 'color: white')
       state.selectedDevs = devs
       state.devs = devs
       // console.log('%c state.devs = ' + JSON.stringify(state.devs), 'color: lime')
@@ -53,6 +59,16 @@ export default new Vuex.Store({
     FIND_TEXT(state, text) {
       console.log('%c FIND_TEXT = ' + text, 'color: yellow')
       state.text = text
+    },
+
+    PROGRESS_BAR(state, bool) {
+      console.log('%c PROGRESS_BAR = ', 'color: yellow')
+      state.progressBar = bool
+    },
+
+    PROGRESS_BAR(state, skills = []) {
+      console.log('%c PROGRESS_BAR = ' + skills, 'color: white')
+      state.skills = skills
     }
   },
 
@@ -96,8 +112,15 @@ export default new Vuex.Store({
     findText(context, text) {
       console.log('%c findText = ' + text, 'color: yellow')
       ajaxFindText(context, text)
+    },
+
+    progressBar(context, bool) {
+      console.log('%c progressBar = ' + bool, 'color: white')
+      context.commit('PROGRESS_BAR', bool)
+    },
+
+    skills(context, skills) {
+      context.commit('SKILLS', skills)
     }
-
-
-  },
+  }
 })

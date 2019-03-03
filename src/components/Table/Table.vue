@@ -46,13 +46,12 @@ export default {
       rank_3: '',
     },
     ranks: [5, 4, 3, 2, 1],
-    skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
+    //skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
     title: ['Junior', 'Mid', 'Senior', 'Consultant', 'Architect'],
     rowsPerPageItems: [10, 25, 100, 250, 1000, 1100, 2000, 2085, 3000],
     pagination: {
       'sortBy': 'rank_1', 'descending': true, 'rowsPerPage': -1
     },
-    loading: false,
     newDevs: [],
     calendar: false,
     picker: [],
@@ -73,17 +72,15 @@ export default {
 
     dialog() {
       return  this.$store.getters.getOpenDialog || false
+    },
+
+    progressBar() {
+      return this.$store.getters.getProgressBar
+    },
+
+    skills() {
+      return this.$store.getters.getSkills
     }
-  },
-
-  watch: {
-    /* dialog (val) {
-      val || this.close()
-    }, */
-    /* calendar (val) {
-      val || this.close()
-    }  */
-
   },
 
   created() {
@@ -104,11 +101,11 @@ export default {
 
     onCalendarSave(item) {
       console.log('onCalendarSave')
-
       const calendarDev = this.$store.getters.getCalendarDev
 
       calendarDev.dates = this.picker
       this.$store.dispatch('updateCalendar', calendarDev)
+      this.$store.dispatch('progressBar', true)
       this.calendar = false
     },
 
@@ -122,7 +119,6 @@ export default {
       console.log('%c this.selected = ' + JSON.stringify(this.selected), 'color: white')
 
       this.editedItem = Object.assign({}, item)
-      // this.dialog = true
       this.$store.dispatch('openDialog', true)
     },
 
@@ -147,6 +143,7 @@ export default {
 
       // this.dialog = false
       this.$store.dispatch('openDialog', false)
+      this.$store.dispatch('progressBar', true)
     },
 
     onNewDevClose() {
@@ -168,8 +165,8 @@ export default {
       this.selected.push(item)
       console.log('%c this.selected.length = ' + this.selected.length, 'color: lime')
       this.$store.dispatch('setDblClickedDevs', this.selected)
-    },
-  },
+    }
+  }
 }
 </script>
 

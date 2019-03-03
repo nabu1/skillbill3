@@ -11,18 +11,27 @@
         skill_3: '',
         rank_3: '',
         ranks: [5, 4, 3, 2, 1],
-        skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
+        // skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
         title: ['Junior', 'Mid', 'Senior', 'Consultant', 'Architect'],
         selectedSkills: {},
       }
     },
+
+    computed: {
+      skills() {
+        //return  ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
+        return this.$store.getters.getSkills
+      }
+    },
+
     methods: {
       onSkill_1(e) {
+        console.log('%c onSkill_1 = ' + e, 'color: white')
         this.selectedSkills.skill_1 = e
       },
       onRank_1(e) {
         this.selectedSkills.rank_1 = e
-        this.console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+        // console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
       },
       onSkill_2(e) {
         this.selectedSkills.skill_2 = e
@@ -38,6 +47,7 @@
       },
       onSearch() {
         console.log('%c this.selectedSkills = ' + JSON.stringify(this.selectedSkills), 'color: orange')
+        this.$store.dispatch('progressBar', true)
         this.$store.dispatch('readDevs', this.selectedSkills)
       },
       onClear() {

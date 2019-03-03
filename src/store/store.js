@@ -9,7 +9,8 @@ function initialState() {
     devs: [],
     dblClickedDevs: null,
     selectedDevs: [],
-    openDialog: false
+    openDialog: false,
+    calendarDev: null
   }
 }
 
@@ -20,7 +21,8 @@ export default new Vuex.Store({
   getters: {
     readDevs: state => state.devs,
     getDblClickedDevs: state => state.dblClickedDevs,
-    getOpenDialog: state => state.openDialog
+    getOpenDialog: state => state.openDialog,
+    getCalendarDev: state => state.calendarDev
   },
 
   mutations: {
@@ -32,13 +34,18 @@ export default new Vuex.Store({
 
     SET_DBLCLICKED_DEVS(state, devs) {
       console.log('%c SET_DBLCLICKED_DEVS = ' + devs.length , 'color: lime')
-      console.log('%c devs = ' + JSON.stringify(devs), 'color: lime')
+      console.log('%c devs.length = ' + devs.length, 'color: lime')
       state.dblClickedDevs = devs
     },
 
     OPEN_DIALOG(state, bool) {
       state.openDialog = bool
       console.log('%c OPEN_DIALOG = ' + bool, 'color: white')
+    },
+
+    SET_CALENDAR_DEV(state, dev) {
+      console.log('%c SET_CALENDAR_DEV dev = ' + dev, 'color: yellow')
+      state.calendarDev = dev
     }
   },
 
@@ -47,7 +54,7 @@ export default new Vuex.Store({
       ajaxReadDevs(context, selectedSkills)
     },
 
-    setDdblClickedDevs(context, devs) {
+    setDblClickedDevs(context, devs) {
       context.commit('SET_DBLCLICKED_DEVS', devs)
     },
 
@@ -63,13 +70,19 @@ export default new Vuex.Store({
       ajaxUpdateDev(context, dev)
     },
 
-    updateCalendar(context, clickedDev) {
-      ajaxUpdateDates(context, clickedDev)
+    updateCalendar(context, calendarDev) {
+      console.log('%c updateCalendar calendarDev = ' + calendarDev, 'color: white')
+      ajaxUpdateDates(context, calendarDev)
     },
 
     openDialog(context, bool) {
       context.commit('OPEN_DIALOG', bool)
 
+    },
+
+    setCalendarDev(context, dev) {
+      console.log('%c setCalendarDev dev = ' + dev, 'color: yellow')
+      context.commit('SET_CALENDAR_DEV', dev)
     }
 
 

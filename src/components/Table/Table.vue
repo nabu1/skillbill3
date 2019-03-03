@@ -105,14 +105,16 @@ export default {
       this.devLast = dev.last
       this.picker = dev.dates || []
       this.calendar = true
-      this.$store.dispatch('setDdblClickedDev', dev)
+      this.$store.dispatch('setCalendarDev', dev)
     },
 
     onCalendarSave(item) {
-      const clickedDev = this.$store.getters.getDblClickedDev
+      console.log('onCalendarSave')
 
-      clickedDev.dates = this.picker
-      this.$store.dispatch('updateCalendar', clickedDev)
+      const calendarDev = this.$store.getters.getCalendarDev
+
+      calendarDev.dates = this.picker
+      this.$store.dispatch('updateCalendar', calendarDev)
       this.calendar = false
     },
 
@@ -163,8 +165,8 @@ export default {
     onDblClick(item) {
       console.log('item')
       this.selected.push(item)
-      console.log('%c this.selected = ' + JSON.stringify(this.selected), 'color: lime')
-      this.$store.dispatch('setDdblClickedDevs', this.selected)
+      console.log('%c this.selected.length = ' + this.selected.length, 'color: lime')
+      this.$store.dispatch('setDblClickedDevs', this.selected)
     },
   },
 }

@@ -24,9 +24,9 @@ export default new Vuex.Store({
 
   mutations: {
     READ_DEVS(state, devs) {
+      state.selectedDevs = devs
       state.devs = devs
-      console.log('%c state.devs = ' + state.devs, 'color: lime')
-      //state.selected = []
+      console.log('%c state.devs = ' + JSON.stringify(state.devs), 'color: lime')
     },
 
     SET_DBLCLICKED_DEV(state, dev) {
@@ -65,7 +65,7 @@ export default new Vuex.Store({
     },
 
     setSelectedDevs(context, selectedDevs) {
-      console.log('%c setSelectedDevs = ' + JSON.stringify(selectedDevs), 'color: white')
+      // console.log('%c setSelectedDevs = ' + JSON.stringify(selectedDevs), 'color: white')
       context.commit('SET_SELECTED_DEVS', selectedDevs)
 
     }

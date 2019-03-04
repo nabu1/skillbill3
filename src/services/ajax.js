@@ -143,3 +143,26 @@ export const ajaxFindText = (context, text) => {
       context.commit('PROGRESS_BAR', false)
     })
 }
+
+export const sendEmail = (recipients, text) => {
+  console.log('%c text = ' + text, 'color: orange')
+  console.log('%c recipients = ' + recipients, 'color: orange')
+
+  const subject = LITERALS.EMAIL_SUBJECT
+  const proxy = LITERALS.EMAIL_PROXY
+
+  recipients.map(el => {
+    const mailUrl = proxy + '?to=' + el + '&subject=' + subject + '&html=' + text
+    console.log('%c mailUrl = ' + mailUrl, 'color: orange')
+
+    axios.post(mailUrl)
+    .then(() => {
+      console.log('Email wysłany')
+      alert('Email wysłany. Sprawdź za chwilę skrzynkę')
+    })
+    .catch(err => console.log('Mail error: ', err))
+    .finally(() => {
+      alert('Email wysłany. Sprawdź za chwilę skrzynkę')
+    })
+  })
+}

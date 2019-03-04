@@ -8,8 +8,10 @@
     data() {
       return {
         find: '',
+        emailDisabled: true
       }
     },
+
     computed: {
       dblClickedDevs() {
         if (this.$store.getters.getDblClickedDevs) {
@@ -17,6 +19,7 @@
         }
       }
     },
+
     methods: {
       onFind() {
         console.log('%c onFind = ' + this.find, 'color: orange')
@@ -27,12 +30,14 @@
       onSelected() {
         console.log('%c selected = ' + JSON.stringify(this.$store.getters.getDblClickedDevs), 'color: yellow')
         this.$store.commit('READ_DEVS', this.$store.getters.getDblClickedDevs)
-        //this.$store.dispatch('setSelectedDevs', [])
+        //this.$refs.btnEmail.disabled = false
+        this.emailDisabled = false
       },
 
       onResetSelected() {
         this.$store.dispatch('setDblClickedDevs', [])
         this.$store.dispatch('readDevs', {})
+        this.emailDisabled = true
       },
 
       onEmail() {
@@ -41,9 +46,7 @@
         const devs = this.$store.getters.getDblClickedDevs
         console.log('%c devs = ' + devs, 'color: orange')
 
-        const emails = devs.map(el => {
-          return el.email
-        })
+        const emails = devs.map(el => el.email)
 
         console.log('%c emails = ' + emails, 'color: orange')
         sendEmail(emails, text)
@@ -51,6 +54,7 @@
 
       onNewDev(item) {
         console.log('Tu onNewDev')
+        this.emailDisabled = true
         this.$store.dispatch('openDialog', true)
       },
     }
@@ -64,19 +68,8 @@
 
   a {
     color: primary;
+    font-size: 1.3em;
     font-weight: 400;
-    font-size: 1.1em;
     text-decoration: none;
   }
-  body {
-    color: white;
-    font-variant: italic;
-  }
-  .stations {
-    color: yellow;
-  }
-  .documents {
-    color: lime;
-  }
-
 </style>

@@ -1,4 +1,4 @@
-function updateView(context, allDevs, dev) {
+export const updateView = (context, allDevs, dev) => {
   console.log('updateView')
 
   for(let i = 0; i < allDevs.length; i++) {
@@ -10,19 +10,3 @@ function updateView(context, allDevs, dev) {
   }
 }
 
-function skills(skill) {
-  console.log('%c skill = ' + skill, 'color: lime')
-  // let skills = ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
-  let skills = this.$store.getters.getSkills
-
-  skills = skills.filter(el => {
-    return el !== skill
-  })
-
-  this.$store.dispatch('skills', skills)
-}
-
-
-
-module.exports.updateView = updateView
-module.exports.skills = skills

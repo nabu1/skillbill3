@@ -13,8 +13,7 @@ function initialState() {
     selectedDevs: [],
     openDialog: false,
     calendarDev: null,
-    progressBar: false,
-    skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
+    progressBar: false
   }
 }
 
@@ -28,8 +27,6 @@ export default new Vuex.Store({
     getOpenDialog: state => state.openDialog,
     getCalendarDev: state => state.calendarDev,
     getProgressBar: state => state.progressBar,
-    getSkills: state => state.skills || []
-    //getSkills: state => ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
   },
 
   mutations: {
@@ -65,11 +62,6 @@ export default new Vuex.Store({
       console.log('%c PROGRESS_BAR = ', 'color: yellow')
       state.progressBar = bool
     },
-
-    PROGRESS_BAR(state, skills = []) {
-      console.log('%c PROGRESS_BAR = ' + skills, 'color: white')
-      state.skills = skills
-    }
   },
 
   actions: {
@@ -118,9 +110,5 @@ export default new Vuex.Store({
       console.log('%c progressBar = ' + bool, 'color: white')
       context.commit('PROGRESS_BAR', bool)
     },
-
-    skills(context, skills) {
-      context.commit('SKILLS', skills)
-    }
   }
 })

@@ -11,40 +11,51 @@
         skill_3: '',
         rank_3: '',
         ranks: [5, 4, 3, 2, 1],
-        // skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
+        skills_1: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
+        skills_2: [],
+        skills_3: [],
         title: ['Junior', 'Mid', 'Senior', 'Consultant', 'Architect'],
         selectedSkills: {},
       }
     },
 
-    computed: {
-      skills() {
-        //return  ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby']
-        return this.$store.getters.getSkills
-      }
-    },
-
     methods: {
-      onSkill_1(e) {
-        console.log('%c onSkill_1 = ' + e, 'color: white')
-        this.selectedSkills.skill_1 = e
+      onSkill_1(skill) {
+        this.selectedSkills.skill_1 = skill
+
+        const arr = this.skills_1.filter(el => {
+          return el !== skill
+        })
+
+        this.skills_2 = arr
       },
-      onRank_1(e) {
-        this.selectedSkills.rank_1 = e
-        // console.log('%c selectedSkills = ' + JSON.stringify(selectedSkills), 'color: white')
+
+      onRank_1(rank) {
+        this.selectedSkills.rank_1 = rank
       },
-      onSkill_2(e) {
-        this.selectedSkills.skill_2 = e
+
+      onSkill_2(skill) {
+        this.selectedSkills.skill_2 = skill
+
+        const arr = this.skills_2.filter(el => {
+          return el !== skill
+        })
+
+        this.skills_3 = arr
       },
-      onRank_2(e) {
-        this.selectedSkills.rank_2 = e
+
+      onRank_2(rank) {
+        this.selectedSkills.rank_2 = rank
       },
-      onSkill_3(e) {
-        this.selectedSkills.skill_3 = e
+
+      onSkill_3(skill) {
+        this.selectedSkills.skill_3 = skill
       },
-      onRank_3(e) {
-        this.selectedSkills.rank_3 = e
+
+      onRank_3(rank) {
+        this.selectedSkills.rank_3 = rank
       },
+
       onSearch() {
         console.log('%c this.selectedSkills = ' + JSON.stringify(this.selectedSkills), 'color: orange')
         this.$store.dispatch('progressBar', true)

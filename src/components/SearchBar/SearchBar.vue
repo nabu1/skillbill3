@@ -28,7 +28,6 @@
       },
 
       onSelected() {
-        console.log('%c selected = ' + JSON.stringify(this.$store.getters.getDblClickedDevs), 'color: yellow')
         this.$store.commit('READ_DEVS', this.$store.getters.getDblClickedDevs)
         //this.$refs.btnEmail.disabled = false
         this.emailDisabled = false
@@ -37,6 +36,7 @@
       onResetSelected() {
         this.$store.dispatch('setDblClickedDevs', [])
         this.$store.dispatch('readDevs', {})
+        this.$store.dispatch('progressBar', true)
         this.emailDisabled = true
       },
 

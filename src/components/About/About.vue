@@ -1,12 +1,12 @@
 <template src="./About.html"></template>
 
 <style scoped>
-#main {
+#about {
   background: #46494c;
   color: white;
   font-family: 'Roboto';
   font-size: 1em;
-  margin: 10px 50px 30px 50px;
+  line-height:1.7em;
 }
 
 a {

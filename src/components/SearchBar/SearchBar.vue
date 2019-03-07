@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style scoped>
-#main {
+#searchbar {
   font-family: 'Roboto';
 }
 

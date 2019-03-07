@@ -147,7 +147,7 @@ export default {
 </script>
 
 <style scoped>
-#app {
+#table {
   margin-top: 0px !important;
   margin-bottom: 0px;
 }

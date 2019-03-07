@@ -11,44 +11,40 @@ export default {
       skill3: '',
       rank3: '',
       ranks: [5, 4, 3, 2, 1],
-      skills_1: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
-      skills_2: [],
-      skills_3: [],
+      skills1: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
+      skills2: [],
+      skills3: [],
       title: ['Junior', 'Mid', 'Senior', 'Consultant', 'Architect'],
       selectedSkills: {},
     }
   },
 
   methods: {
-    onSkill_1(skill) {
+    onSkill1(skill) {
       this.selectedSkills.skill1 = skill
-
-      const arr = this.skills_1.filter(el => el !== skill)
-
-      this.skills_2 = arr
+      const arr = this.skills1.filter(el => el !== skill)
+      this.skills2 = arr
     },
 
-    onRank_1(rank) {
+    onRank1(rank) {
       this.selectedSkills.rank1 = rank
     },
 
-    onskill2(skill) {
+    onSkill2(skill) {
       this.selectedSkills.skill2 = skill
-
-      const arr = this.skills_2.filter(el => el !== skill)
-
-      this.skills_3 = arr
+      const arr = this.skills2.filter(el => el !== skill)
+      this.skills3 = arr
     },
 
-    onRank_2(rank) {
+    onRank2(rank) {
       this.selectedSkills.rank2 = rank
     },
 
-    onSkill_3(skill) {
+    onSkill3(skill) {
       this.selectedSkills.skill3 = skill
     },
 
-    onRank_3(rank) {
+    onRank3(rank) {
       this.selectedSkills.rank3 = rank
     },
 
@@ -58,7 +54,7 @@ export default {
     },
     onClear() {
       this.selectedSkills = {}
-      this.skill_1 = null
+      this.skill1 = null
       this.skill2 = null
       this.skill3 = null
       this.rank1 = null
@@ -70,6 +66,10 @@ export default {
 </script>
 
 <style scoped>
+#filter {
+  font-family: 'Roboto';
+}
+
 .filters {
   transform: scale(1, 1);
   transform-origin: left;
@@ -79,7 +79,4 @@ export default {
   background-color: grey;
 }
 
-#main {
-  font-family: 'Roboto';
-}
 </style>

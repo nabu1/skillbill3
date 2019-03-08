@@ -3,7 +3,7 @@ import { tableCell } from './cyhelper'
 for (let i = 0; i < 1 ; i++) {
 
   describe('I. Documents filtering', () => {
-    it.skip('1. .. using JS=4, Java=2 and C without rank specified, should get at least 3 devs' +
+    it('1. .. using JS=4, Java=2 and C without rank specified, should get at least 3 devs' +
       'and pressing Clear button should clear all the select boxes', () => {
 
       cy.visit('http://localhost:8080')
@@ -60,23 +60,11 @@ for (let i = 0; i < 1 ; i++) {
     })
   })
 
-  describe('II. Deleting a dev', () => {
-    it.skip('1. ..  should immediately remove him from the view', () => {
-
-      cy.visit('http://localhost:8080').wait(4000)
-      cy.get('tr:nth-child(1) > td.text-xs-left.body-2:nth-child(1)').should('have.text', '7')
-
-      // deleting row
-      cy.get("tr:nth-child(1) > td.justify-center.layout.px-0 > i:nth-child(3)").click()
-      cy.get('tr:nth-child(1) > td.text-xs-left.body-2:nth-child(2)').should('not.have.text', '7')
-    })
-  })
-
-  describe('III. Inserting a dev', () => {
-    it.skip('1. .. should immediately add him to the view (JS=5, Java=5, C=5)', () => {
+  describe('II. Inserting and deleteing a dev', () => {
+    it('1. .. should immediately add him to the view (JS=5, Java=5, C=5) and followig click \
+      on "Delete" icon should immediately remove him, from the view', () => {
       cy.visit('http://localhost:8080').wait(2000)
 
-      //cy.get('#main > nav > div > div.layout.xs12.sm1.d-flex.ml-2 > button.mt-3.mr-0.v-btn.theme--dark.primary > div').click().wait(1000)
       cy.get("[data-test='btnNewDev']").click({ force: true })
       cy.get("[data-test='first']").type('Hans')
       cy.get("[data-test='last']").type('Klops')
@@ -89,54 +77,66 @@ for (let i = 0; i < 1 ; i++) {
       cy.get('#app > div:nth-child(6) > div > div > div:nth-child(1) > a > div > div').click({ force: true})
 
       cy.get('#app > div:nth-child(5) > div > div > div:nth-child(1) > a > div > div').click({ force: true})
-// cy.pause()
-      cy.get("[data-test='btnSave']").click({ force: true })
+      cy.get("[data-test='btnSave']").click({ force: true }).wait(2000)
       cy.get("[data-test='find']").type('klops')
-      cy.get("[data-test='btnFind']").click()
-      cy.get(tableCell(1, 2)).contains('Junior').should('exist')
+      cy.get("[data-test='btnFind']").click().wait(2000)
+
+      cy.get(tableCell(1, 2)).contains('Consultant').should('exist')
       cy.get(tableCell(1, 3)).contains('Hans').should('exist')
       cy.get(tableCell(1, 4)).contains('Klops').should('exist')
+
+      cy.get("tr:nth-child(1) > td.justify-center.layout.px-0 > i:nth-child(3)").click().wait(2000)
+
+      cy.get(tableCell(1, 2)).contains('Consultant').should('not.exist')
+      cy.get(tableCell(1, 3)).contains('Hans').should('not.exist')
+      cy.get(tableCell(1, 4)).contains('Klops').should('not.exist')
     })
   })
 
-  describe('IV. Editing a dev', () => {
-    it.skip('1. .. should immediately show modified data of a dev', () => {
+  describe('III. Editing a dev', () => {
+    it('1. .. should immediately show modified data of a dev', () => {
       cy.visit('http://localhost:8080').wait(2000)
-
-      cy.get("#app > div.application--wrap > div > div.elevation-6 > div.v-table__overflow > table > tbody > tr:nth-child(1) > td.justify-center.layout.px-0 > i:nth-child(1)").click()
+      cy.get('tr:nth-child(1)').find('[data-test="edit"]').click()
 
       cy.get("[data-test='first']").clear().type('Miś')
       cy.get("[data-test='last']").clear().type('Uszatek')
-      cy.get('#app > div:nth-child(11) > div > div > div:nth-child(5) > a > div > div').click({ force: true})  // Architect
+
+      cy.get('#app > div:nth-child(10) > div > div > div:nth-child(5) > a > div > div').click({ force: true})  // Architect
 
       cy.get("[data-test='email']").clear().type('Mis@Uszatek.pl')
       cy.get("[data-test='btnSave']").click({ force: true })
-
       cy.get("[data-test='find']").type('Uszatek')
       cy.get("[data-test='btnFind']").click()
 
       cy.get(tableCell(1, 2)).contains('Architect').should('exist')
       cy.get(tableCell(1, 3)).contains('Miś').should('exist')
       cy.get(tableCell(1, 4)).contains('Uszatek').should('exist')
+      cy.get('tr:nth-child(1)').find('[data-test="edit"]').click()
 
+      cy.get("[data-test='first']").clear().type('Betty')
+      cy.get("[data-test='last']").clear().type('Loo')
+      cy.get('#app > div:nth-child(10) > div > div > div:nth-child(3) > a > div > div').click({ force: true})  // Architect
+      cy.get("[data-test='email']").clear().type('betty.loo@gmail.com')
+      cy.get("[data-test='btnSave']").click({ force: true })
+      cy.get("[data-test='btnSearch']").click({ force: true })
     })
   })
 
-  describe('V. Selected devs', () => {
-    it.only('1. .. should be visible after being doubleclicked and button Selected was clicked. \
+  describe('IV. Selected devs', () => {
+    it('1. .. should be visible after being doubleclicked and button Selected was clicked. \
       After clicking Reset butto, previous table id shown', () => {
 
       cy.visit('http://localhost:8080').wait(2000)
 
-      cy.contains('Uszatek').dblclick()
-      cy.contains('Worsnup').dblclick()
-      cy.contains('Suddell').dblclick()
+      cy.contains('Loo').dblclick()
+      cy.contains('Maty').dblclick()
+      cy.contains('Cuffin').dblclick()
 
       cy.get("[data-test='btnSelected']").click()
 
-      cy.contains('Uszatek').should('exist')
-      cy.contains('Worsnup').should('exist')
-      cy.contains('Suddell').should('exist')
+      cy.contains('Loo').should('exist')
+      cy.contains('Maty').should('exist')
+      cy.contains('Cuffin').should('exist')
 
       cy.get("[data-test='btnReset']").click().wait(1000)
       cy.get('table > tbody > tr').its('length').should('be.gte', 10)
@@ -144,4 +144,3 @@ for (let i = 0; i < 1 ; i++) {
   })
 }
 
-// ("#app > div.application--wrap > div > div.elevation-6 > div.v-table__overflow > table > tbody > tr:nth-child(3)")

@@ -50,6 +50,7 @@ export const ajaxInsertDev = (context, dev) => {
       const lastDocumentId = await getLastDocumentId(query)
       await insertDocument(lastDocumentId)
       context.commit('PROGRESS_BAR', false)
+      alert('Dane zostały zapisane na serwerze')
     }
     catch (err) {
       context.commit('PROGRESS_BAR', false)
@@ -66,6 +67,7 @@ export const ajaxDeleteDev = (context, dev) => {
   axios
     .delete(url)
     .then(() => {
+      alert('Skasowano na serwerze')
       updateView(context, allDevs, dev)
     })
     .catch(err => console.log('Błąd: ', err))
@@ -89,6 +91,7 @@ export const ajaxUpdateDev = (context, dev) => {
           break
         }
       }
+      alert('Zapisano na serwerze')
     })
     .catch(err => {
       alert('Błąd zapisu dat na serwerze: ', err)

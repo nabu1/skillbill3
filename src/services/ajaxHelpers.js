@@ -5,9 +5,9 @@ export const fetch = (context, selectedSkills = {}) => {
     if (selectedSkills.paginationLimit > NUMBERS.PAGINATION_LIMIT) {
       const limit = Number(String(selectedSkills.paginationLimit).slice(1)) || NUMBERS.PAGINATION_LIMIT
       const skip = Number(selectedSkills.paginationLimit) - limit
-      return LITERALS.PREFIX + `?s={id:1}&sk=${skip}&l=${limit}` + LITERALS.SUFFIX
+      return LITERALS.PREFIX + `?s={id:1}&sk=${skip}&l=${limit}&` + LITERALS.SUFFIX
     }
-    return LITERALS.PREFIX + '?s={id:1}&l=' + NUMBERS.DOWNLOAD_LIMIT + LITERALS.SUFFIX
+    return LITERALS.PREFIX + '?s={id:1}&l=' + NUMBERS.DOWNLOAD_LIMIT + '&' + LITERALS.SUFFIX
   }
 
   let query = ''
@@ -34,14 +34,14 @@ export const fetch = (context, selectedSkills = {}) => {
     query = '?s={id:1}&l=' + NUMBERS.DOWNLOAD_LIMIT
   }
 
-  const urlString = LITERALS.PREFIX + query + LITERALS.SUFFIX
+  const urlString = LITERALS.PREFIX + query + '&' + LITERALS.SUFFIX
 
   return urlString
 }
 
 export const findText = text => {
   const query = `?q={$or:[{"first":{"$regex":".*${text}.*",$options:"i"}},{"last":{"$regex":".*${text}.*",$options:"i"}}]}`
-  const urlString = LITERALS.PREFIX + query + LITERALS.SUFFIX
+  const urlString = LITERALS.PREFIX + query + '&' + LITERALS.SUFFIX
 
   return urlString
 }

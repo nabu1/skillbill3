@@ -36,7 +36,6 @@
                   </v-select>
                 </v-flex>
 
-
                 <v-flex xs12 sm6 md4>
                   <v-select data-test="rank1" v-model="editedItem.rank1" :items="ranks"
                     label="Rank 1" standard class="filters" clearable dense>
@@ -136,15 +135,15 @@
 
             <td class="justify-center layout px-0">
 
-              <v-icon data-test="edit" small class="mr-3" @click="onEdit(props.item)">
+              <v-icon data-test="edit" small class="mr-3" @click="onEdit(props.item)" title="edit">
                 edit
               </v-icon>
 
-              <v-icon small class="mr-3" @click="onCalendar(props.item)">
+              <v-icon small class="mr-3" @click="onCalendar(props.item)" title="calendar">
                 calendar_today
               </v-icon>
 
-              <v-icon small @click="onDelete(props.item)">
+              <v-icon small @click="onDelete(props.item)" title="delete">
                 delete
               </v-icon>
             </td>

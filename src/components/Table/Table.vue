@@ -1,6 +1,9 @@
 <template src="./Table.html"></template>
+import { LITERALS } from '../../services/constants';
 
 <script>
+import { LITERALS } from '../../services/constants'
+
 export default {
   data: () => ({
     expand: false,
@@ -42,9 +45,9 @@ export default {
       skill3: '',
       rank3: '',
     },
-    ranks: [5, 4, 3, 2, 1],
-    skills: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
-    title: ['Junior', 'Mid', 'Senior', 'Consultant', 'Architect'],
+    ranks: LITERALS.RANKS,
+    skills: LITERALS.SKILLS,
+    title: LITERALS.TITLE,
     newDevs: [],
     calendar: false,
     picker: [],
@@ -119,7 +122,7 @@ export default {
 
       this.$store.dispatch('openDialog', false)
       this.$store.dispatch('progressBar', true)
-      this.editedItem = []
+      this.editedItem = {}
     },
 
     onNewDevClose() {

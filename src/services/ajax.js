@@ -18,7 +18,8 @@ export const ajaxReadDevs = (context, selectedSkills) => {
 }
 
 export const ajaxInsertDev = (context, dev) => {
-  const countUrl = LITERALS.PREFIX + '?&c=true&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+  // const countUrl = LITERALS.PREFIX + '?&c=true&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI'
+  const countUrl = LITERALS.PREFIX + '?&c=true&' + LITERALS.SUFFIX
 
   const getCount = async () => axios
     .get(countUrl)
@@ -46,11 +47,10 @@ export const ajaxInsertDev = (context, dev) => {
   async function insertDev() {
     try {
       const count = (await getCount()) - 1
-      const query = LITERALS.PREFIX + `?s={id:1}&sk=${count}&l=1&apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+      const query = LITERALS.PREFIX + `?s={id:1}&sk=${count}&l=1&` + LITERALS.SUFFIX
       const lastDocumentId = await getLastDocumentId(query)
       await insertDocument(lastDocumentId)
       context.commit('PROGRESS_BAR', false)
-      alert('Dane zostały zapisane na serwerze')
     }
     catch (err) {
       context.commit('PROGRESS_BAR', false)
@@ -63,7 +63,8 @@ export const ajaxInsertDev = (context, dev) => {
 export const ajaxDeleteDev = (context, dev) => {
   const allDevs = context.getters.readDevs
   const _id = dev._id.$oid
-  const url = `${LITERALS.PREFIX}/${_id.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  // const url = `${LITERALS.PREFIX}/${_id.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  const url = `${LITERALS.PREFIX}/${_id.replace(/"/g, '')}?` + LITERALS.SUFFIX
   axios
     .delete(url)
     .then(() => {
@@ -77,7 +78,8 @@ export const ajaxDeleteDev = (context, dev) => {
 }
 
 export const ajaxUpdateDev = (context, dev) => {
-  const url = `${LITERALS.PREFIX}/${dev._id.$oid.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  // const url = `${LITERALS.PREFIX}/${dev._id.$oid.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  const url = `${LITERALS.PREFIX}/${dev._id.$oid.replace(/"/g, '')}?` + LITERALS.SUFFIX
   const allDevs = context.getters.readDevs
 
   axios
@@ -104,7 +106,8 @@ export const ajaxUpdateDev = (context, dev) => {
 export const ajaxUpdateDates = (context, calendarDev) => {
   const _id = calendarDev._id.$oid
   const dates = calendarDev.dates
-  const url = `${LITERALS.PREFIX}/${_id.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  // const url = `${LITERALS.PREFIX}/${_id.replace(/"/g, '')}?apiKey=XRr-4BkluC11FFgtbOnUhzUlodvp8RfI`
+  const url = `${LITERALS.PREFIX}/${_id.replace(/"/g, '')}?` + LITERALS.SUFFIX
   const allDevs = context.getters.readDevs
   const datesObj = { $set: { dates } }
 

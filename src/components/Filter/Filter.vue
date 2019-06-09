@@ -1,6 +1,8 @@
 <template src="./Filter.html"></template>
 
 <script>
+import { LITERALS } from '../../services/constants'
+
 export default {
   data() {
     return {
@@ -10,11 +12,11 @@ export default {
       rank2: '',
       skill3: '',
       rank3: '',
-      ranks: [5, 4, 3, 2, 1],
-      skills1: ['C', 'CPP', 'Go', 'JS', 'Java', 'ObjC', 'Ruby'],
+      ranks: LITERALS.RANKS,
+      skills1: LITERALS.SKILLS,
       skills2: [],
       skills3: [],
-      title: ['Junior', 'Mid', 'Senior', 'Consultant', 'Architect'],
+      title: LITERALS.TITLE,
       selectedSkills: {},
     }
   },
